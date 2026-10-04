@@ -1,6 +1,6 @@
 # DSA Learning
 
-I use this repository to learn data structures and algorithms with C and C++. I practice by solving problems from [NeetCode 150](https://neetcode.io/practice/practice/neetcode150).
+I use this repository to learn data structures and algorithms with C and C++. I practice by solving problems from [Blind 75](https://neetcode.io/practice/practice/blind75).
 
 ## Goals
 
