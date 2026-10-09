@@ -2,7 +2,7 @@
 
 **Problem:** [NeetCode – Largest Rectangle in Histogram](https://neetcode.io/problems/largest-rectangle-in-histogram/question)  
 **Solution:** [solution.cpp](solution.cpp) (C++17)  
-**Interactive animation:** [visualization.html](visualization.html) (Vietnamese explanations)
+
 
 ## Approach
 
