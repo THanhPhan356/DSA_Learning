@@ -1,66 +1,66 @@
 # Reverse Linked List
 
-**Đề bài:** [NeetCode – Reverse Linked List](https://neetcode.io/problems/reverse-a-linked-list/question?list=neetcode150)
+**Problem:** [NeetCode – Reverse Linked List](https://neetcode.io/problems/reverse-a-linked-list/question?list=neetcode150)
 
-Đảo hướng liên kết của danh sách liên kết đơn và trả về node đầu mới. Cả hai cách dưới đây sử dụng lại các node hiện có.
+Reverse the links in a singly linked list and return its new head. Both approaches reuse the existing nodes.
 
 ```text
-Trước: 1 → 2 → 3 → null
-Sau:   3 → 2 → 1 → null
+Before: 1 → 2 → 3 → null
+After:  3 → 2 → 1 → null
 ```
 
-## 1. Iterative — dùng vòng lặp
+## 1. Iterative — using a loop
 
 **Code:** [iterative.cpp](iterative.cpp)
 
-Dùng ba biến con trỏ:
+Use three pointer variables:
 
-- `prev`: đầu của phần đã đảo, ban đầu là `nullptr`.
-- `current`: node đang xử lý, ban đầu là `head`.
-- `next`: lưu node kế tiếp trước khi sửa liên kết.
+- `prev`: the head of the reversed portion, initially `nullptr`.
+- `current`: the node being processed, initially `head`.
+- `next`: saves the next node before its incoming link is changed.
 
-Mỗi vòng thực hiện theo thứ tự:
+Perform these steps in each iteration:
 
-1. `next = current->next`: giữ đường tới phần chưa xử lý.
-2. `current->next = prev`: đảo liên kết của node hiện tại.
-3. `prev = current`: cập nhật đầu của phần đã đảo.
-4. `current = next`: chuyển sang node kế tiếp.
+1. `next = current->next`: keep access to the unprocessed portion.
+2. `current->next = prev`: reverse the current node's link.
+3. `prev = current`: update the head of the reversed portion.
+4. `current = next`: move to the next node.
 
-Ví dụ với `1 → 2 → 3`:
+Example with `1 → 2 → 3`:
 
-| Sau bước | Phần đã đảo (`prev`) | Phần chưa xử lý (`current`) |
+| Step | Reversed portion (`prev`) | Unprocessed portion (`current`) |
 | --- | --- | --- |
-| Khởi tạo | `null` | `1 → 2 → 3 → null` |
-| Xử lý node 1 | `1 → null` | `2 → 3 → null` |
-| Xử lý node 2 | `2 → 1 → null` | `3 → null` |
-| Xử lý node 3 | `3 → 2 → 1 → null` | `null` |
+| Initialization | `null` | `1 → 2 → 3 → null` |
+| Process node 1 | `1 → null` | `2 → 3 → null` |
+| Process node 2 | `2 → 1 → null` | `3 → null` |
+| Process node 3 | `3 → 2 → 1 → null` | `null` |
 
-Khi `current == nullptr`, trả về `prev`. Phải lưu `next` trước khi đổi `current->next`, nếu không sẽ mất đường tới phần còn lại.
+When `current == nullptr`, return `prev`. Save `next` before changing `current->next`; otherwise, access to the remaining nodes is lost.
 
-## 2. Recursive — dùng đệ quy
+## 2. Recursive — using recursion
 
 **Code:** [recursive.cpp](recursive.cpp)
 
-1. Nếu danh sách rỗng hoặc chỉ có một node, trả về `head`.
-2. Gọi `reverseList(head->next)` để đảo phần phía sau; kết quả là `newHead`.
-3. `head->next->next = head`: nối node kế tiếp ngược về node hiện tại.
-4. `head->next = nullptr`: bỏ liên kết cũ để tránh tạo chu trình.
-5. Trả về `newHead` qua các lời gọi.
+1. If the list is empty or contains one node, return `head`.
+2. Call `reverseList(head->next)` to reverse the remaining list and obtain `newHead`.
+3. `head->next->next = head`: make the original next node point back to the current node.
+4. `head->next = nullptr`: remove the old forward link to prevent a cycle.
+5. Return `newHead` through the recursive calls.
 
-Ví dụ khi xử lý node 1: phần `2 → 3` đã được đảo thành `3 → 2 → null`. Con trỏ `head->next` vẫn trỏ tới node 2; gán `head->next->next = head` tạo liên kết `2 → 1`. Sau đó gán `head->next = nullptr` để có `3 → 2 → 1 → null`.
+For example, when processing node 1, the remaining list `2 → 3` has already become `3 → 2 → null`. The pointer `head->next` still points to node 2, so `head->next->next = head` creates the link `2 → 1`. Setting `head->next = nullptr` then produces `3 → 2 → 1 → null`.
 
-## So sánh
+## Complexity comparison
 
-| Cách | Thời gian | Bộ nhớ phụ |
+| Approach | Time | Auxiliary space |
 | --- | --- | --- |
 | Iterative | O(n) | O(1) |
-| Recursive | O(n) | O(n), do stack lời gọi |
+| Recursive | O(n) | O(n), due to the call stack |
 
-Iterative phù hợp khi cần tiết kiệm bộ nhớ hoặc danh sách rất dài. Recursive giúp luyện cách phân rã bài toán nhưng độ sâu lời gọi tăng theo số node.
+The iterative approach is useful when memory is limited or the list is very long. The recursive approach illustrates how to break down the problem, but its call depth grows with the number of nodes.
 
-## Trường hợp cần kiểm tra
+## Cases to check
 
-| Đầu vào | Kết quả |
+| Input | Expected output |
 | --- | --- |
 | `[]` | `[]` |
 | `[1]` | `[1]` |
@@ -68,8 +68,8 @@ Iterative phù hợp khi cần tiết kiệm bộ nhớ hoặc danh sách rất 
 | `[1, 2, 3]` | `[3, 2, 1]` |
 | `[2, 2, 1]` | `[1, 2, 2]` |
 
-Node cuối sau khi đảo phải trỏ tới `nullptr`. Các node phải được giữ nguyên, chỉ thay đổi liên kết.
+The new tail must point to `nullptr`. Preserve the original nodes and their values; only change their links.
 
-## Sử dụng code
+## Using the code
 
-Hai file C++ là hai lựa chọn độc lập, mỗi file có lớp `Solution`. Chọn một cách để nộp bài. NeetCode cung cấp sẵn `ListNode`, nên khi nộp chỉ cần sao chép lớp `Solution`; file [list-node.h](list-node.h) dùng cho việc biên dịch trên máy.
+The two C++ files are independent alternatives, each defining a `Solution` class. Choose one approach for submission. NeetCode provides `ListNode`, so copy only the `Solution` class when submitting. The [list-node.h](list-node.h) file supplies the node definition for local compilation.
