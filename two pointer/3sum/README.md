@@ -2,7 +2,7 @@
 
 **Problem:** [NeetCode – 3Sum](https://neetcode.io/problems/three-integer-sum/question?list=neetcode150)  
 **Solution:** [solution.cpp](solution.cpp)  
-**Local tests:** [test.cpp](test.cpp)
+
 
 Return all unique triplets whose sum is zero. Each triplet must use three different indices, but its values may be equal if the input contains enough copies. The order of the results does not matter.
 
