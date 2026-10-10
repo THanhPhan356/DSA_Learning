@@ -1,4 +1,4 @@
-# DSA Learning
+# DSA Blind75
 
 I use this repository to learn data structures and algorithms with C and C++. I practice by solving problems from [Blind 75](https://neetcode.io/practice/practice/blind75).
 
